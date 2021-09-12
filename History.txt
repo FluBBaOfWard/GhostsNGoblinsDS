@@ -1,0 +1,20 @@
+GhostsNGoblinsDS revision history
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+V0.1.5 - 2021-05-11 (FluBBa)
+	Added sound output.
+
+V0.1.1 - 2021-03-26 (FluBBa)
+	Fixed rom loading.
+	Added load/save state.
+
+V0.0.2 - 2021-02-13 (FluBBa)
+	Everything seems to work.
+
+V0.0.1 - 2021-02-07 (FluBBa)
+	Game starts.
+
+V0.0.0 - 2021-02-05 (FluBBa)
+	Started to code.
+

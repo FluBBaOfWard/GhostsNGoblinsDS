@@ -1,0 +1,18 @@
+GhostsNGoblinsDS To do
+----------------------
+
+
+
+Misc:
+	Test dipswitches.
+
+Graphic:
+
+CPU:
+
+GUI:
+
+Sound:
+	Fix up YM2203.
+
+Games:

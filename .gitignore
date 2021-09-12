@@ -1,0 +1,7 @@
+GhostsNGoblinsDS.xcodeproj/project.xcworkspace/xcuserdata
+GhostsNGoblinsDS.xcodeproj/xcuserdata
+include/gng
+*.elf
+*.nds
+*.zip
+build
