@@ -97,6 +97,7 @@ VblSound2:					;@ r0=length, r1=pointer, r2=format?
 	ldmfd sp,{r0}
 	mov r0,r0,lsl#2
 	ldr r1,pcmPtr0
+	ldr r2,=YM2203_0
 	bl ay38910Mixer
 
 	ldmfd sp,{r0}
@@ -106,6 +107,7 @@ VblSound2:					;@ r0=length, r1=pointer, r2=format?
 	ldmfd sp,{r0}
 	mov r0,r0,lsl#2
 	ldr r1,pcmPtr1
+	ldr r2,=YM2203_1
 	bl ay38910Mixer
 
 	ldmfd sp,{r0,r1}
