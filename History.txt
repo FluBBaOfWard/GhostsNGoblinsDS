@@ -2,8 +2,9 @@ GhostsNGoblinsDS revision history
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 
-V0.1.6 - 2021-11-28 (FluBBa)
+V0.1.6 - 2022-03-16 (FluBBa)
 	Fixed showing of all games.
+	Updated sound chips.
 
 V0.1.5 - 2021-05-11 (FluBBa)
 	Added sound output.
