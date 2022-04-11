@@ -13,7 +13,7 @@
 #include "ARMZ80/Version.h"
 #include "GngVideo/Version.h"
 
-#define EMUVERSION "V0.1.6 2022-03-16"
+#define EMUVERSION "V0.1.6 2022-04-11"
 
 const fptr fnMain[] = {nullUI, subUI, subUI, subUI, subUI, subUI, subUI, subUI, subUI, subUI};
 
