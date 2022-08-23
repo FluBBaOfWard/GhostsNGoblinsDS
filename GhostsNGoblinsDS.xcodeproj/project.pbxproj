@@ -216,7 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				9C7BB94625FCBDDE00EA9C9C /* graphics */,
-				A47F095D2087BFC0004E1DA6 /* unzip */,
+				A47F095D2087BFC0004E1DA6 /* Unzip */,
 				9C8F3400248ACB7600996E5A /* nds_asm.h */,
 				9CBEE0DD26EE79770095347A /* EmuSettings.h */,
 				A47F092820863384004E1DA6 /* EmuMenu.h */,
@@ -233,7 +233,7 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		A47F095D2087BFC0004E1DA6 /* unzip */ = {
+		A47F095D2087BFC0004E1DA6 /* Unzip */ = {
 			isa = PBXGroup;
 			children = (
 				A47F095F2087BFC0004E1DA6 /* puff.h */,
@@ -241,7 +241,7 @@
 				A47F09602087BFC0004E1DA6 /* unzipnds.h */,
 				A47F095E2087BFC0004E1DA6 /* unzipnds.c */,
 			);
-			path = unzip;
+			path = Unzip;
 			sourceTree = "<group>";
 		};
 		A48CC0251618E65200465E20 /* source */ = {
@@ -334,7 +334,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEVKITARM = $DEVKITPRO/devkitarm;
-				DEVKITPRO = /opt/devkitpro_old;
+				DEVKITPRO = /opt/devkitpro;
 				PRODUCT_NAME = GhostsNGoblinsDS;
 			};
 			name = Debug;

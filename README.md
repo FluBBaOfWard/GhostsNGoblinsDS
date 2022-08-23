@@ -1,4 +1,4 @@
-# GhostsNGoblinsDS V0.1.6
+# GhostsNGoblinsDS V0.1.7
 
 This is a Ghosts'n Goblins - Arcade emulator for the NDS.
 Crappy sound but you should still be able to enjoy the games though. =)
