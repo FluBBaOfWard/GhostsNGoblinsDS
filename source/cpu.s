@@ -53,8 +53,7 @@ gngFrameLoop:
 ;@----------------------------------------------------------------------------
 	ldr z80optbl,=Z80OpTable
 	ldr r0,z80CyclesPerScanline
-	b Z80RestoreAndRunXCycles
-gngZ80End:
+	bl Z80RestoreAndRunXCycles
 	add r0,z80optbl,#z80Regs
 	stmia r0,{z80f-z80pc,z80sp}			;@ Save Z80 state
 	bl updateSoundTimer
@@ -99,7 +98,7 @@ soundCpuSetIRQ:					;@ Sound latch write/read
 ;@----------------------------------------------------------------------------
 m6809CyclesPerScanline:	.long 0
 z80CyclesPerScanline:	.long 0
-frameTotal:			.long 0		;@ Let ui.c see frame count for savestates
+frameTotal:			.long 0		;@ Let GUI.c see frame count for savestates
 waitCountIn:		.byte 0
 waitMaskIn:			.byte 0
 waitCountOut:		.byte 0
@@ -112,7 +111,11 @@ jrHack:			;@ JR -3 (0x18 0xFD), Z80 speed hack.
 	cmp r0,#-3
 	andeq cycles,cycles,#CYC_MASK
 	add z80pc,z80pc,r0
-	fetch 12
+//	fetch 12
+	ldrb r0,[z80pc],#1
+	subs cycles,cycles,#12*CYCLE
+	ldrpl pc,[z80optbl,r0,lsl#2]
+	b outOfCycles
 ;@----------------------------------------------------------------------------
 braHack:		;@ BRA -9 (0x20 0xF7), M6809 speed hack.
 ;@----------------------------------------------------------------------------
@@ -156,15 +159,13 @@ cpuReset:		;@ Called by loadCart/resetGame
 	adr r4,cpuMapData+8
 	bl mapZ80Memory
 
-	adr r0,gngZ80End
-	str r0,[z80optbl,#z80NextTimeout]
-	str r0,[z80optbl,#z80NextTimeout_]
-
-	mov r0,#0
+	mov r0,z80optbl
+	mov r1,#0
 	bl Z80Reset
 
-//	adr r0,jrHack
-//	str r0,[z80optbl,#0x18*4]
+//	mov r0,#0x18
+//	adr r1,jrHack
+//	bl Z80RedirectOpcode
 
 	ldmfd sp!,{lr}
 	bx lr

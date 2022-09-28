@@ -11,6 +11,7 @@ Graphic:
 CPU:
 
 GUI:
+	Add debug menu.
 
 Sound:
 	Fix up YM2203.

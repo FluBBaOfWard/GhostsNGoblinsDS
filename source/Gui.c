@@ -13,7 +13,7 @@
 #include "ARMZ80/Version.h"
 #include "GnGVideo/Version.h"
 
-#define EMUVERSION "V0.1.7 2022-08-23"
+#define EMUVERSION "V0.1.7 2022-09-29"
 
 const fptr fnMain[] = {nullUI, subUI, subUI, subUI, subUI, subUI, subUI, subUI, subUI, subUI};
 
@@ -34,25 +34,25 @@ const u8 menuXBack[] = {0,0,0,0,2,2,2,2,1,8};
 
 u8 gGammaValue = 0;
 
-char *const autoTxt[] = {"Off","On","With R"};
-char *const speedTxt[] = {"Normal","200%","Max","50%"};
-char *const sleepTxt[] = {"5min","10min","30min","Off"};
-char *const brighTxt[] = {"I","II","III","IIII","IIIII"};
-char *const ctrlTxt[] = {"1P","2P"};
-char *const dispTxt[] = {"Unscaled","Scaled"};
-char *const flickTxt[] = {"No Flicker","Flicker"};
+char *const autoTxt[] = {"Off", "On", "With R"};
+char *const speedTxt[] = {"Normal", "200%", "Max", "50%"};
+char *const sleepTxt[] = {"5min", "10min", "30min", "Off"};
+char *const brighTxt[] = {"I", "II", "III", "IIII", "IIIII"};
+char *const ctrlTxt[] = {"1P", "2P"};
+char *const dispTxt[] = {"Unscaled", "Scaled"};
+char *const flickTxt[] = {"No Flicker", "Flicker"};
 
 char *const coinTxt[] = {
-	"1 Coin - 1 Credit","1 Coin - 2 Credits","1 Coin - 3 Credits","1 Coin - 4 Credits",
-	"1 Coin - 5 Credits","1 Coin - 6 Credits","1 Coin - 7 Credits","2 Coins - 1 Credit",
-	"2 Coins - 3 Credits","2 Coins - 5 Credits","3 Coins - 1 Credit","3 Coins - 2 Credits",
-	"3 Coins - 4 Credits","4 Coins - 1 Credit","4 Coins - 3 Credits","Free Play"};
-char *const coinAffectTxt[] = {"Coin A","Coin B"};
-char *const diffTxt[] = {"Easy","Normal","Difficult","Very Difficult"};
-char *const livesTxt[] = {"3","4","5","7"};
-char *const bonusTxt[] = {"20K 70K 70K+","30K 80K 80K+","20K 80K","30K 80K"};
-char *const cabTxt[] = {"Upright","Cocktail"};
-char *const singleTxt[] = {"Single","Dual"};
+	"1 Coin - 1 Credit",  "1 Coin - 2 Credits", "1 Coin - 3 Credits", "1 Coin - 4 Credits",
+	"1 Coin - 5 Credits", "1 Coin - 6 Credits", "1 Coin - 7 Credits", "2 Coins - 1 Credit",
+	"2 Coins - 3 Credits","2 Coins - 5 Credits","3 Coins - 1 Credit", "3 Coins - 2 Credits",
+	"3 Coins - 4 Credits","4 Coins - 1 Credit", "4 Coins - 3 Credits","Free Play"};
+char *const coinAffectTxt[] = {"Coin A", "Coin B"};
+char *const diffTxt[] = {"Easy", "Normal", "Difficult", "Very Difficult"};
+char *const livesTxt[] = {"3", "4", "5", "7"};
+char *const bonusTxt[] = {"20K 70K 70K+", "30K 80K 80K+", "20K 80K", "30K 80K"};
+char *const cabTxt[] = {"Upright", "Cocktail"};
+char *const singleTxt[] = {"Single", "Dual"};
 
 
 void setupGUI() {

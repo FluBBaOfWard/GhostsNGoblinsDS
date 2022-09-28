@@ -1,14 +1,10 @@
 #include <nds.h>
-#include <fat.h>
-
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <sys/dir.h>
 
 #include "FileHandling.h"
 #include "Shared/EmuMenu.h"
+#include "Shared/EmuSettings.h"
 #include "Shared/FileHelper.h"
 #include "Shared/Unzip/unzipnds.h"
 #include "Shared/EmubaseAC.h"
@@ -17,7 +13,6 @@
 #include "Cart.h"
 #include "Gfx.h"
 #include "io.h"
-#include "GhostsNGoblins.h"
 
 static const char *const folderName = "acds";
 static const char *const settingName = "settings.cfg";
@@ -32,13 +27,13 @@ static bool loadRoms(int gameNr, bool doLoad);
 int loadSettings() {
 	FILE *file;
 
-	if ( findFolder(folderName) ) {
+	if (findFolder(folderName)) {
 		return 1;
 	}
 	if ( (file = fopen(settingName, "r")) ) {
 		fread(&cfg, 1, sizeof(ConfigData), file);
 		fclose(file);
-		if ( !strstr(cfg.magic, "cfg") ) {
+		if (!strstr(cfg.magic, "cfg")) {
 			infoOutput("Error in settings file.");
 			return 1;
 		}
@@ -80,7 +75,7 @@ void saveSettings() {
 	cfg.dipSwitchGG2 = g_dipSwitch2;
 	cfg.dipSwitchGG3 = g_dipSwitch3;
 
-	if ( findFolder(folderName) ) {
+	if (findFolder(folderName)) {
 		return;
 	}
 	if ( (file = fopen(settingName, "w")) ) {
@@ -98,11 +93,10 @@ int loadNVRAM() {
 	FILE *file;
 	char nvRamName[32];
 
-	if ( findFolder(folderName) ) {
+	if (findFolder(folderName)) {
 		return 1;
 	}
-	strlcpy(nvRamName, games[selectedGame].gameName, sizeof(nvRamName));
-	strlcat(nvRamName, ".sav", sizeof(nvRamName));
+	setFileExtension(nvRamName, currentFilename, ".sav", sizeof(nvRamName));
 	if ( (file = fopen(nvRamName, "r")) ) {
 		fread(NV_RAM, 1, sizeof(NV_RAM), file);
 		fclose(file);
@@ -115,11 +109,10 @@ void saveNVRAM() {
 	FILE *file;
 	char nvRamName[32];
 
-	if ( findFolder(folderName) ) {
+	if (findFolder(folderName)) {
 		return;
 	}
-	strlcpy(nvRamName, games[selectedGame].gameName, sizeof(nvRamName));
-	strlcat(nvRamName, ".sav", sizeof(nvRamName));
+	setFileExtension(nvRamName, currentFilename, ".sav", sizeof(nvRamName));
 	if ( (file = fopen(nvRamName, "w")) ) {
 		fwrite(NV_RAM, 1, sizeof(NV_RAM), file);
 		fclose(file);
@@ -131,72 +124,31 @@ void saveNVRAM() {
 	}
 }
 
-
-void loadState(void) {
-	u32 *statePtr;
-	FILE *file;
-	char stateName[32];
-
-	if ( findFolder(folderName) ) {
-		return;
-	}
-	strlcpy(stateName, games[selectedGame].gameName, sizeof(stateName));
-	strlcat(stateName, ".sta", sizeof(stateName));
-	int stateSize = getStateSize();
-	if ( (file = fopen(stateName, "r")) ) {
-		if ( (statePtr = malloc(stateSize)) ) {
-			fread(statePtr, 1, stateSize, file);
-			unpackState(statePtr);
-			free(statePtr);
-			infoOutput("Loaded state.");
-		}
-		else {
-			infoOutput("Couldn't alloc mem for state.");
-		}
-		fclose(file);
-	}
+void loadState() {
+	loadDeviceState(folderName);
 }
-void saveState(void) {
-	u32 *statePtr;
-	FILE *file;
-	char stateName[32];
 
-	if ( findFolder(folderName) ) {
-		return;
-	}
-	strlcpy(stateName, games[selectedGame].gameName, sizeof(stateName));
-	strlcat(stateName, ".sta", sizeof(stateName));
-	int stateSize = getStateSize();
-	if ( (file = fopen(stateName, "w")) ) {
-		if ( (statePtr = malloc(stateSize)) ) {
-			packState(statePtr);
-			fwrite(statePtr, 1, stateSize, file);
-			free(statePtr);
-			infoOutput("Saved state.");
-		}
-		else {
-			infoOutput("Couldn't alloc mem for state.");
-		}
-		fclose(file);
-	}
+void saveState() {
+	saveDeviceState(folderName);
 }
 
 //---------------------------------------------------------------------------------
 bool loadGame(int gameNr) {
 	cls(0);
 	drawText(" Checking roms", 10, 0);
-	if ( loadRoms(gameNr, false) ) {
+	if (loadRoms(gameNr, false)) {
 		return true;
 	}
 	drawText(" Loading roms", 10, 0);
 	loadRoms(gameNr, true);
 	selectedGame = gameNr;
+	strlcpy(currentFilename, games[selectedGame].gameName, sizeof(currentFilename));
 	setEmuSpeed(0);
 	loadCart(gameNr,0);
-	if ( emuSettings & 4 ) {
+	if (emuSettings & AUTOLOAD_STATE) {
 		loadState();
 	}
-	else if ( (emuSettings>>10) & 1 ) {
+	else if (emuSettings & AUTOLOAD_NVRAM) {
 		loadNVRAM();
 	}
 	return false;
@@ -215,7 +167,7 @@ bool loadRoms(int gameNr, bool doLoad) {
 	strlMerge(zipName, game->gameName, ".zip", sizeof(zipName));
 
 	chdir("/");			// Stupid workaround.
-	if ( chdir(currentDir) == -1 ) {
+	if (chdir(currentDir) == -1) {
 		return true;
 	}
 
@@ -236,15 +188,15 @@ bool loadRoms(int gameNr, bool doLoad) {
 			continue;
 		}
 		if ( (file = fopen(romName, "r")) ) {
-			if ( doLoad ) {
+			if (doLoad) {
 				fread(romArea, 1, romSize, file);
 				romArea += romSize;
 			}
 			fclose(file);
 			found = true;
 		}
-		else if ( !(findFileWithCRC32InZip(zipName, romCRC)) ) {
-			if ( doLoad ) {
+		else if (!findFileWithCRC32InZip(zipName, romCRC)) {
+			if (doLoad) {
 				loadFileWithCRC32InZip(romArea, zipName, romCRC, romSize);
 				romArea += romSize;
 			}
@@ -253,8 +205,8 @@ bool loadRoms(int gameNr, bool doLoad) {
 		else {
 			for (j=0; j<GAME_COUNT; j++) {
 				strlMerge(zipSubName, games[j].gameName, ".zip", sizeof(zipName));
-				if ( !(findFileWithCRC32InZip(zipSubName, romCRC)) ) {
-					if ( doLoad ) {
+				if (!findFileWithCRC32InZip(zipSubName, romCRC)) {
+					if (doLoad) {
 						loadFileWithCRC32InZip(romArea, zipSubName, romCRC, romSize);
 						romArea += romSize;
 					}
