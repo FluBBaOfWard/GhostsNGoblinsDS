@@ -6,8 +6,9 @@
 #include "ARMZ80/ARMZ80.i"
 #include "GnGVideo/GnGVideo.i"
 
-	.global cpuReset
 	.global run
+	.global stepFrame
+	.global cpuReset
 	.global frameTotal
 	.global waitMaskIn
 	.global waitMaskOut
@@ -20,7 +21,7 @@
 	.section .text
 	.align 2
 ;@----------------------------------------------------------------------------
-run:		;@ Return after 1 frame
+run:						;@ Return after X frame(s)
 	.type   run STT_FUNC
 ;@----------------------------------------------------------------------------
 	ldrh r0,waitCountIn
@@ -60,8 +61,7 @@ gngFrameLoop:
 ;@--------------------------------------
 	ldr m6809optbl,=m6809OpTable
 	ldr r0,m6809CyclesPerScanline
-	b m6809RestoreAndRunXCycles
-gngM6809End:
+	bl m6809RestoreAndRunXCycles
 	add r0,m6809optbl,#m6809Regs
 	stmia r0,{m6809f-m6809pc,m6809sp}	;@ Save M6809 state
 ;@--------------------------------------
@@ -105,6 +105,39 @@ waitCountOut:		.byte 0
 waitMaskOut:		.byte 0
 
 ;@----------------------------------------------------------------------------
+stepFrame:					;@ Return after 1 frame
+	.type   stepFrame STT_FUNC
+;@----------------------------------------------------------------------------
+	stmfd sp!,{r4-r11,lr}
+;@----------------------------------------------------------------------------
+gngStepLoop:
+;@----------------------------------------------------------------------------
+	ldr z80optbl,=Z80OpTable
+	ldr r0,z80CyclesPerScanline
+	bl Z80RestoreAndRunXCycles
+	add r0,z80optbl,#z80Regs
+	stmia r0,{z80f-z80pc,z80sp}			;@ Save Z80 state
+	bl updateSoundTimer
+;@--------------------------------------
+	ldr m6809optbl,=m6809OpTable
+	ldr r0,m6809CyclesPerScanline
+	bl m6809RestoreAndRunXCycles
+	add r0,m6809optbl,#m6809Regs
+	stmia r0,{m6809f-m6809pc,m6809sp}	;@ Save M6809 state
+;@--------------------------------------
+	ldr gngptr,=gngVideo_0
+	bl doScanline
+	cmp r0,#0
+	bne gngStepLoop
+;@----------------------------------------------------------------------------
+
+	ldr r1,frameTotal
+	add r1,r1,#1
+	str r1,frameTotal
+
+	ldmfd sp!,{r4-r11,lr}		;@ Exit here if doing single frame:
+	bx lr						;@ Return to rommenu()
+;@----------------------------------------------------------------------------
 jrHack:			;@ JR -3 (0x18 0xFD), Z80 speed hack.
 ;@----------------------------------------------------------------------------
 	ldrsb r0,[z80pc],#1
@@ -139,11 +172,7 @@ cpuReset:		;@ Called by loadCart/resetGame
 	adr r4,cpuMapData
 	bl map6809Memory
 
-	adr r0,gngM6809End
-	str r0,[m6809optbl,#m6809NextTimeout]
-	str r0,[m6809optbl,#m6809NextTimeout_]
-
-	mov r0,#0
+	mov r0,m6809optbl
 	bl m6809Reset
 
 //	adr r0,braHack
