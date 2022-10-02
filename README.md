@@ -37,9 +37,6 @@ To select between the tabs use R & L or the touchscreen.
 			Unscaled mode:  L & R buttons scroll the screen up and down.
 		Scaling: Here you can select if you want flicker or barebones lineskip.
 		Gamma: Lets you change the gamma ("brightness").
-		Disable Foreground: Turn on/off foreground rendering.
-		Disable Background: Turn on/off background rendering.
-		Disable Sprites: Turn on/off sprite rendering.
 	Settings:
 		Speed: Switch between speed modes.
 			Normal: Game runs at it's normal speed.
@@ -55,8 +52,13 @@ To select between the tabs use R & L or the touchscreen.
 			GUI screen when menu is not active.
 		Emulator on Bottom: Select if top or bottom screen should be used for
 			emulator, when menu is active emulator screen is allways on top.
-		Debug Output: Show an FPS meter for now.
 		Autosleep: Doesn't work.
+	Debug:
+		Debug Output: Show an FPS meter for now.
+		Disable Foreground: Turn on/off foreground rendering.
+		Disable Background: Turn on/off background rendering.
+		Disable Sprites: Turn on/off sprite rendering.
+		Step Frame: Emulate one frame.
 	Dipswitches:
 		Lot of settings for the actual arcade game, difficulty/lives etc.
 
