@@ -2,7 +2,7 @@ GhostsNGoblinsDS revision history
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 
-V0.1.7 - 2022-09-29 (FluBBa)
+V0.1.7 - 2022-10-02 (FluBBa)
 	Maintenance release.
 
 V0.1.6 - 2022-04-11 (FluBBa)

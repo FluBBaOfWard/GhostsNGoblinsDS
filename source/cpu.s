@@ -115,7 +115,7 @@ jrHack:			;@ JR -3 (0x18 0xFD), Z80 speed hack.
 	ldrb r0,[z80pc],#1
 	subs cycles,cycles,#12*CYCLE
 	ldrpl pc,[z80optbl,r0,lsl#2]
-	b outOfCycles
+	b Z80OutOfCycles
 ;@----------------------------------------------------------------------------
 braHack:		;@ BRA -9 (0x20 0xF7), M6809 speed hack.
 ;@----------------------------------------------------------------------------

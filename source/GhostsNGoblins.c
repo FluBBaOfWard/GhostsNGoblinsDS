@@ -1,7 +1,6 @@
 #include <nds.h>
 
 #include "GhostsNGoblins.h"
-#include "Shared/ArcadeRoms.h"
 #include "Gfx.h"
 #include "GnGVideo/GnGVideo.h"
 #include "ARMZ80/ARMZ80.h"
@@ -359,16 +358,16 @@ static const ArcadeRom diamondRoms[17] = {
 	{"prom2",        0x0100, 0x4a1285a4},
 };
 
-const ArcadeGame games[GAME_COUNT] = {
-	{"gng", "Ghosts'n Goblins (World? set 1)", 22, gngRoms},
-	{"gnga", "Ghosts'n Goblins (World? set 2)", 23, gngaRoms},
-	{"gngbl", "Ghosts'n Goblins (bootleg with Cross)", 21, gngblRoms},
-	{"gngprot", "Ghosts'n Goblins (prototype)", 21, gngprotRoms},
-	{"gngblita", "Ghosts'n Goblins (Italian bootleg, harder)", 22, gngblitaRoms},
-	{"gngc", "Ghosts'n Goblins (World? set 3)", 21, gngcRoms},
-	{"gngt", "Ghosts'n Goblins (US)", 21, gngtRoms},
-	{"makaimur", "Makai-Mura (Japan)", 21, makaimurRoms},
-	{"makaimurc", "Makai-Mura (Japan Revision C)", 21, makaimurcRoms},
-	{"makaimurg", "Makai-Mura (Japan Revision G)", 21, makaimurgRoms},
-	{"diamond", "Diamond Run", 17, diamondRoms},
+const ArcadeGame gngGames[GAME_COUNT] = {
+	AC_GAME("gng", "Ghosts'n Goblins (World? set 1)", gngRoms)
+	AC_GAME("gnga", "Ghosts'n Goblins (World? set 2)", gngaRoms)
+	AC_GAME("gngbl", "Ghosts'n Goblins (bootleg with Cross)", gngblRoms)
+	AC_GAME("gngprot", "Ghosts'n Goblins (prototype)", gngprotRoms)
+	AC_GAME("gngblita", "Ghosts'n Goblins (Italian bootleg, harder)", gngblitaRoms)
+	AC_GAME("gngc", "Ghosts'n Goblins (World? set 3)", gngcRoms)
+	AC_GAME("gngt", "Ghosts'n Goblins (US)", gngtRoms)
+	AC_GAME("makaimur", "Makai-Mura (Japan)", makaimurRoms)
+	AC_GAME("makaimurc", "Makai-Mura (Japan Revision C)", makaimurcRoms)
+	AC_GAME("makaimurg", "Makai-Mura (Japan Revision G)", makaimurgRoms)
+	AC_GAME("diamond", "Diamond Run", diamondRoms)
 };
