@@ -52,10 +52,10 @@ runStart:
 ;@----------------------------------------------------------------------------
 gngFrameLoop:
 ;@----------------------------------------------------------------------------
-	ldr z80optbl,=Z80OpTable
+	ldr z80ptr,=Z80OpTable
 	ldr r0,z80CyclesPerScanline
 	bl Z80RestoreAndRunXCycles
-	add r0,z80optbl,#z80Regs
+	add r0,z80ptr,#z80Regs
 	stmia r0,{z80f-z80pc,z80sp}			;@ Save Z80 state
 	bl updateSoundTimer
 ;@--------------------------------------
@@ -91,10 +91,10 @@ gngFrameLoop:
 ;@----------------------------------------------------------------------------
 soundCpuSetIRQ:					;@ Sound latch write/read
 ;@----------------------------------------------------------------------------
-	stmfd sp!,{z80optbl,lr}
-	ldr z80optbl,=Z80OpTable
+	stmfd sp!,{z80ptr,lr}
+	ldr z80ptr,=Z80OpTable
 	bl Z80SetIRQPin
-	ldmfd sp!,{z80optbl,pc}
+	ldmfd sp!,{z80ptr,pc}
 ;@----------------------------------------------------------------------------
 m6809CyclesPerScanline:	.long 0
 z80CyclesPerScanline:	.long 0
@@ -112,10 +112,10 @@ stepFrame:					;@ Return after 1 frame
 ;@----------------------------------------------------------------------------
 gngStepLoop:
 ;@----------------------------------------------------------------------------
-	ldr z80optbl,=Z80OpTable
+	ldr z80ptr,=Z80OpTable
 	ldr r0,z80CyclesPerScanline
 	bl Z80RestoreAndRunXCycles
-	add r0,z80optbl,#z80Regs
+	add r0,z80ptr,#z80Regs
 	stmia r0,{z80f-z80pc,z80sp}			;@ Save Z80 state
 	bl updateSoundTimer
 ;@--------------------------------------
@@ -147,7 +147,7 @@ jrHack:			;@ JR -3 (0x18 0xFD), Z80 speed hack.
 //	fetch 12
 	ldrb r0,[z80pc],#1
 	subs cycles,cycles,#12*CYCLE
-	ldrpl pc,[z80optbl,r0,lsl#2]
+	ldrpl pc,[z80ptr,r0,lsl#2]
 	b Z80OutOfCycles
 ;@----------------------------------------------------------------------------
 braHack:		;@ BRA -9 (0x20 0xF7), M6809 speed hack.
@@ -183,12 +183,12 @@ cpuReset:		;@ Called by loadCart/resetGame
 	ldr r0,=192
 	str r0,z80CyclesPerScanline
 ;@--------------------------------------
-	ldr z80optbl,=Z80OpTable
+	ldr z80ptr,=Z80OpTable
 
 	adr r4,cpuMapData+8
 	bl mapZ80Memory
 
-	mov r0,z80optbl
+	mov r0,z80ptr
 	mov r1,#0
 	bl Z80Reset
 

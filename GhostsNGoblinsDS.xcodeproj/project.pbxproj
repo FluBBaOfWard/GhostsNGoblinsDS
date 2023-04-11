@@ -10,6 +10,7 @@
 		35E683AD1C66453300FCFE8A /* cpu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpu.h; sourceTree = "<group>"; };
 		35E683AF1C664A6D00FCFE8A /* io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = io.h; sourceTree = "<group>"; };
 		746D78E114ED9A8400CC738F /* Makefile */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 4; path = Makefile; sourceTree = "<group>"; };
+		9C23CA9B29E5E1E6007DD39E /* ArcadeRoms.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ArcadeRoms.c; sourceTree = "<group>"; };
 		9C294946260C92A200EDA7C9 /* Capcom.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = Capcom.bmp; sourceTree = "<group>"; };
 		9C294947260C953B00EDA7C9 /* ArcadeRoms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArcadeRoms.h; sourceTree = "<group>"; };
 		9C294948260DEA1B00EDA7C9 /* EmubaseAC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmubaseAC.h; sourceTree = "<group>"; };
@@ -228,6 +229,7 @@
 				A4D0E1222089E5EE00401463 /* AsmExtra.s */,
 				9C294948260DEA1B00EDA7C9 /* EmubaseAC.h */,
 				9C294947260C953B00EDA7C9 /* ArcadeRoms.h */,
+				9C23CA9B29E5E1E6007DD39E /* ArcadeRoms.c */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
