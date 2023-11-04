@@ -8,17 +8,23 @@
 
 	.global run
 	.global stepFrame
+	.global cpuInit
 	.global cpuReset
 	.global frameTotal
 	.global waitMaskIn
 	.global waitMaskOut
 	.global soundCpuSetIRQ
 
+	.global m6809CPU0
 
 	.syntax unified
 	.arm
 
-	.section .text
+#ifdef GBA
+	.section .ewram, "ax", %progbits	;@ For the GBA
+#else
+	.section .text						;@ For anything else
+#endif
 	.align 2
 ;@----------------------------------------------------------------------------
 run:						;@ Return after X frame(s)
@@ -59,10 +65,10 @@ gngFrameLoop:
 	stmia r0,{z80f-z80pc,z80sp}			;@ Save Z80 state
 	bl updateSoundTimer
 ;@--------------------------------------
-	ldr m6809optbl,=m6809OpTable
+	ldr m6809ptr,=m6809CPU0
 	ldr r0,m6809CyclesPerScanline
 	bl m6809RestoreAndRunXCycles
-	add r0,m6809optbl,#m6809Regs
+	add r0,m6809ptr,#m6809Regs
 	stmia r0,{m6809f-m6809pc,m6809sp}	;@ Save M6809 state
 ;@--------------------------------------
 	ldr gngptr,=gngVideo_0
@@ -119,10 +125,10 @@ gngStepLoop:
 	stmia r0,{z80f-z80pc,z80sp}			;@ Save Z80 state
 	bl updateSoundTimer
 ;@--------------------------------------
-	ldr m6809optbl,=m6809OpTable
+	ldr m6809ptr,=m6809CPU0
 	ldr r0,m6809CyclesPerScanline
 	bl m6809RestoreAndRunXCycles
-	add r0,m6809optbl,#m6809Regs
+	add r0,m6809ptr,#m6809Regs
 	stmia r0,{m6809f-m6809pc,m6809sp}	;@ Save M6809 state
 ;@--------------------------------------
 	ldr gngptr,=gngVideo_0
@@ -158,6 +164,11 @@ braHack:		;@ BRA -9 (0x20 0xF7), M6809 speed hack.
 	andeq cycles,cycles,#CYC_MASK
 	fetch 3
 ;@----------------------------------------------------------------------------
+cpuInit:			;@ Called by machineInit
+;@----------------------------------------------------------------------------
+	ldr r0,=m6809CPU0
+	b m6809Init
+;@----------------------------------------------------------------------------
 cpuReset:		;@ Called by loadCart/resetGame
 ;@----------------------------------------------------------------------------
 	stmfd sp!,{lr}
@@ -167,17 +178,18 @@ cpuReset:		;@ Called by loadCart/resetGame
 	ldr r0,=96
 	str r0,m6809CyclesPerScanline
 ;@--------------------------------------
-	ldr m6809optbl,=m6809OpTable
+	ldr m6809ptr,=m6809CPU0
 
 	adr r4,cpuMapData
 	bl map6809Memory
 
-	mov r0,m6809optbl
+	mov r0,m6809ptr
 	bl m6809Reset
 
-//	adr r0,braHack
-//	str r0,[m6809optbl,#0x20*4]
-
+//	mov r0,m6809ptr
+//	adr r2,braHack
+//	mov r1,#0x20
+//	bl m6809PatchOpcode
 
 ;@---Speed - 3.0MHz / 60Hz / 272 lines		;GnG Z80.
 	ldr r0,=192
@@ -238,6 +250,16 @@ z80DataLoop:
 	movs r5,r5,lsr#1
 	bne z80DataLoop
 	ldmfd sp!,{pc}
+;@----------------------------------------------------------------------------
+#ifdef NDS
+	.section .dtcm, "ax", %progbits		;@ For the NDS
+#elif GBA
+	.section .iwram, "ax", %progbits	;@ For the GBA
+#endif
+	.align 2
+;@----------------------------------------------------------------------------
+m6809CPU0:
+	.space m6809Size
 ;@----------------------------------------------------------------------------
 	.end
 #endif // #ifdef __arm__

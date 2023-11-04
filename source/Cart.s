@@ -107,7 +107,7 @@ machineInit: 	;@ Called from C
 	bl gfxInit
 	bl ioInit
 	bl soundInit
-//	bl cpuInit
+	bl cpuInit
 
 	ldmfd sp!,{lr}
 	bx lr
@@ -225,10 +225,10 @@ initMappingPage:	;@ r0=page, r1=mem, r2=rdMem, r3=wrMem
 ;@----------------------------------------------------------------------------
 m6809Mapper0:
 ;@----------------------------------------------------------------------------
-	stmfd sp!,{m6809optbl,lr}
-	ldr m6809optbl,=m6809OpTable
+	stmfd sp!,{m6809ptr,lr}
+	ldr m6809ptr,=m6809CPU0
 	bl m6809Mapper
-	ldmfd sp!,{m6809optbl,pc}
+	ldmfd sp!,{m6809ptr,pc}
 ;@----------------------------------------------------------------------------
 m6809Mapper:		;@ Rom paging..
 ;@----------------------------------------------------------------------------
@@ -244,9 +244,9 @@ m6809Mapper:		;@ Rom paging..
 	cmp r1,#0x88
 	movmi r5,#12
 
-	add r6,m6809optbl,#m6809ReadTbl
-	add r7,m6809optbl,#m6809WriteTbl
-	add r8,m6809optbl,#m6809MemTbl
+	add r6,m6809ptr,#m6809ReadTbl
+	add r7,m6809ptr,#m6809WriteTbl
+	add r8,m6809ptr,#m6809MemTbl
 	b m6809MemAps
 m6809MemApl:
 	add r6,r6,#4

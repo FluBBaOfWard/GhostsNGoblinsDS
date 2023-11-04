@@ -10,6 +10,7 @@
 		35E683AD1C66453300FCFE8A /* cpu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpu.h; sourceTree = "<group>"; };
 		35E683AF1C664A6D00FCFE8A /* io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = io.h; sourceTree = "<group>"; };
 		746D78E114ED9A8400CC738F /* Makefile */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 4; path = Makefile; sourceTree = "<group>"; };
+		9C1162982AF5017F003C92C0 /* EmuMenu.i */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c.preprocessed; path = EmuMenu.i; sourceTree = "<group>"; };
 		9C23CA9B29E5E1E6007DD39E /* ArcadeRoms.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ArcadeRoms.c; sourceTree = "<group>"; };
 		9C294946260C92A200EDA7C9 /* Capcom.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = Capcom.bmp; sourceTree = "<group>"; };
 		9C294947260C953B00EDA7C9 /* ArcadeRoms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArcadeRoms.h; sourceTree = "<group>"; };
@@ -219,6 +220,7 @@
 				A47F095D2087BFC0004E1DA6 /* Unzip */,
 				9C8F3400248ACB7600996E5A /* nds_asm.h */,
 				9CBEE0DD26EE79770095347A /* EmuSettings.h */,
+				9C1162982AF5017F003C92C0 /* EmuMenu.i */,
 				A47F092820863384004E1DA6 /* EmuMenu.h */,
 				A47F092920863384004E1DA6 /* EmuMenu.c */,
 				A47F09642087BFC0004E1DA6 /* FileHelper.h */,
