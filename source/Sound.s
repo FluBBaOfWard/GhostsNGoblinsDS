@@ -4,6 +4,8 @@
 #include "ARMZ80/ARMZ80.i"
 #include "YM2203/YM2203.i"
 
+	.extern pauseEmulation
+
 	.global soundInit
 	.global soundReset
 	.global VblSound2
@@ -13,10 +15,6 @@
 	.global updateSoundTimer
 	.global resetSoundCpu
 
-	.extern pauseEmulation
-
-
-;@----------------------------------------------------------------------------
 
 	.syntax unified
 	.arm

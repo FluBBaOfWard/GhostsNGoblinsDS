@@ -6,16 +6,16 @@
 #include "ARMZ80/ARMZ80.i"
 #include "GnGVideo/GnGVideo.i"
 
+	.global frameTotal
+	.global waitMaskIn
+	.global waitMaskOut
+	.global m6809CPU0
+
 	.global run
 	.global stepFrame
 	.global cpuInit
 	.global cpuReset
-	.global frameTotal
-	.global waitMaskIn
-	.global waitMaskOut
 	.global soundCpuSetIRQ
-
-	.global m6809CPU0
 
 	.syntax unified
 	.arm

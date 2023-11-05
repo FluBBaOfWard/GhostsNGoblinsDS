@@ -6,11 +6,6 @@
 #include "ARMZ80/ARMZ80.i"
 #include "GnGVideo/GnGVideo.i"
 
-	.global machineInit
-	.global loadCart
-	.global m6809Mapper
-	.global z80Mapper
-	.global m6809Mapper0
 	.global romNum
 	.global emuFlags
 	.global cartFlags
@@ -19,12 +14,16 @@
 	.global vromBase1
 	.global vromBase2
 	.global promsBase
-
 	.global soundCpuRam
 	.global NV_RAM
 	.global EMU_RAM
 	.global ROM_Space
 
+	.global machineInit
+	.global loadCart
+	.global m6809Mapper
+	.global z80Mapper
+	.global m6809Mapper0
 
 
 	.syntax unified

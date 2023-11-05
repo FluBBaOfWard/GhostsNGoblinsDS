@@ -5,18 +5,6 @@
 #include "GnGVideo/GnGVideo.i"
 #include "Shared/EmuMenu.i"
 
-	.global ioInit
-	.global ioReset
-	.global IO_R
-	.global IO_W
-	.global Z80In
-	.global Z80Out
-	.global soundIO_R
-	.global soundIO_W
-	.global convertInput
-	.global refreshEMUjoypads
-	.global diamondRunHack
-
 	.global joyCfg
 	.global EMUinput
 	.global gDipSwitch0
@@ -25,6 +13,18 @@
 	.global gDipSwitch3
 	.global coinCounter0
 	.global coinCounter1
+
+	.global ioInit
+	.global ioReset
+	.global convertInput
+	.global refreshEMUjoypads
+	.global IO_R
+	.global IO_W
+	.global Z80In
+	.global Z80Out
+	.global soundIO_R
+	.global soundIO_W
+	.global diamondRunHack
 
 	.syntax unified
 	.arm
