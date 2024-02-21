@@ -14,7 +14,7 @@
 #include "ARMZ80/Version.h"
 #include "GnGVideo/Version.h"
 
-#define EMUVERSION "V0.1.7 2023-11-05"
+#define EMUVERSION "V0.1.7 2024-02-21"
 
 static void uiDebug(void);
 

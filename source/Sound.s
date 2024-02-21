@@ -25,24 +25,24 @@
 soundInit:
 	.type soundInit STT_FUNC
 ;@----------------------------------------------------------------------------
-	stmfd sp!,{lr}
+//	stmfd sp!,{lr}
 
-	ldr ymptr,=YM2203_0
-	mov r1,#1
+//	ldr r0,=YM2203_0
+//	mov r1,#1
 
-	ldmfd sp!,{lr}
+//	ldmfd sp!,{lr}
 //	bx lr
 
 ;@----------------------------------------------------------------------------
 soundReset:
 ;@----------------------------------------------------------------------------
 	stmfd sp!,{lr}
-	mov r0,#0
-	str r0,timeCounter
-	ldr ymptr,=YM2203_0
+	mov r1,#0
+	str r1,timeCounter
+	ldr r0,=YM2203_0
 	bl ym2203Reset				;@ Sound
-	mov r0,#0
-	ldr ymptr,=YM2203_1
+	mov r1,#0
+	ldr r0,=YM2203_1
 	bl ym2203Reset				;@ Sound
 	ldmfd sp!,{lr}
 	bx lr
@@ -90,20 +90,18 @@ VblSound2:					;@ r0=length, r1=pointer, r2=format?
 	stmfd sp!,{r0,r1,r4-r6,lr}
 
 	ldr r1,pcmPtr2
-	ldr ymptr,=YM2203_0
+	ldr r2,=YM2203_0
 	bl ym2203Mixer
 	ldmfd sp,{r0}
-	mov r0,r0,lsl#2
 	ldr r1,pcmPtr0
 	ldr r2,=YM2203_0
 	bl ay38910Mixer
 
 	ldmfd sp,{r0}
 	ldr r1,pcmPtr3
-	ldr ymptr,=YM2203_1
+	ldr r2,=YM2203_1
 	bl ym2203Mixer
 	ldmfd sp,{r0}
-	mov r0,r0,lsl#2
 	ldr r1,pcmPtr1
 	ldr r2,=YM2203_1
 	bl ay38910Mixer
@@ -115,24 +113,11 @@ mixLoop0:
 	ldrsh r2,[r3],#2
 	ldrsh r12,[r4],#2
 	add r2,r2,r12
-	ldrsh r12,[r3],#2
-	add r2,r2,r12
-	ldrsh r12,[r4],#2
-	add r2,r2,r12
-	ldrsh r12,[r3],#2
-	add r2,r2,r12
-	ldrsh r12,[r4],#2
-	add r2,r2,r12
-	ldrsh r12,[r3],#2
-	add r2,r2,r12
-	ldrsh r12,[r4],#2
-	add r2,r2,r12
-
 	ldrsh r12,[r5],#2
-	add r2,r2,r12,lsl#2
+	add r2,r2,r12
 	ldrsh r12,[r6],#2
-	add r2,r2,r12,lsl#2
-	mov r2,r2,asr#4
+	add r2,r2,r12
+	mov r2,r2,asr#2
 
 	subs r0,r0,#1
 	strhpl r2,[r1],#2
@@ -154,9 +139,9 @@ silenceLoop:
 soundWrite:				;@ 0xE000-0xE003
 ;@----------------------------------------------------------------------------
 	stmfd sp!,{r3,lr}
-	movs r1,r12,lsl#31
-	ldrcc ymptr,=YM2203_0
-	ldrcs ymptr,=YM2203_1
+	teq r12,r12,lsl#31
+	ldrcc r1,=YM2203_0
+	ldrcs r1,=YM2203_1
 	adr lr,soundRet
 	bpl ym2203IndexW
 	bmi ym2203DataW
