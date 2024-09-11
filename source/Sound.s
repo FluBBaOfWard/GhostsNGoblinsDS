@@ -69,17 +69,15 @@ updateSoundTimer:
 	str r0,timeCounter
 	moveq r0,#1
 	movmi r0,#0
-	ble Z80SetIRQPin
+	ble Z80SetIRQPinCurrentCpu
 	bx lr
 ;@----------------------------------------------------------------------------
 resetSoundCpu:
 ;@----------------------------------------------------------------------------
-	stmfd sp!,{z80ptr,lr}
 	and r0,r0,#1
 	eor r0,r0,#1
-	ldr z80ptr,=Z80OpTable
-	bl Z80SetResetPin
-	ldmfd sp!,{z80ptr,pc}
+	ldr r1,=Z80OpTable
+	b Z80SetResetPin
 ;@----------------------------------------------------------------------------
 VblSound2:					;@ r0=length, r1=pointer, r2=format?
 ;@----------------------------------------------------------------------------

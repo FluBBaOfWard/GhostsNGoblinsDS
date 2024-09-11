@@ -97,10 +97,8 @@ gngFrameLoop:
 ;@----------------------------------------------------------------------------
 soundCpuSetIRQ:					;@ Sound latch write/read
 ;@----------------------------------------------------------------------------
-	stmfd sp!,{z80ptr,lr}
-	ldr z80ptr,=Z80OpTable
-	bl Z80SetIRQPin
-	ldmfd sp!,{z80ptr,pc}
+	ldr r1,=Z80OpTable
+	b Z80SetIRQPin
 ;@----------------------------------------------------------------------------
 m6809CyclesPerScanline:	.long 0
 z80CyclesPerScanline:	.long 0
