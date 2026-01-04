@@ -3,12 +3,14 @@
 This is a Ghosts'n Goblins - Arcade emulator for the NDS.
 Crappy sound but you should still be able to enjoy the games though. =)
 
-
 ## How to use
 
-Depending on your flashcart you might have to DLDI patch the emulator.
-Create a folder named "acds" in either the root of your flash card or in the
-data folder. Now put gng.zip, gngc.zip into a folder where you have arcade roms.
+1. Create a folder named "acds" in either the root of your flash card or
+ in the data folder. This is where settings and save files end up.
+2. Now put gng.zip, gngc.zip into a folder where you have
+ (arcade) roms, max 768 files per folder, filenames must not be longer than 127
+ chars. You can use zip-files (as long as they use the deflate compression).
+3. Depending on your flashcart you might have to DLDI patch the emulator.
 
 When the emulator starts, you can either press L+R or tap on the screen to open
 up the menu (the emulator tries to load "Ghosts 'n Goblins" automagically on
@@ -16,7 +18,6 @@ startup). Now you can use the cross or touchscreen to navigate the menus, A or
 double tap to select an option, B or the top of the screen to go back a step.
 
 To select between the tabs use R & L or the touchscreen.
-
 
 ## Menu
 
@@ -61,7 +62,8 @@ To select between the tabs use R & L or the touchscreen.
   * Disable Background: Turn on/off background rendering.
   * Disable Sprites: Turn on/off sprite rendering.
   * Step Frame: Emulate one frame.
-* Dipswitches: Lot of settings for the actual arcade game, difficulty/lives etc.
+* Dipswitches:
+  * Lot of settings for the actual arcade game, difficulty/lives etc.
 
 ### About
 
@@ -79,6 +81,8 @@ Pierpaolo Prazzoli and the MAME team for information about the hardware.
 
 Fredrik Ahlström
 
-Twitter @TheRealFluBBa
+<https://bsky.app/profile/therealflubba.bsky.social>
 
-http://www.github.com/FluBBaOfWard
+<https://www.github.com/FluBBaOfWard>
+
+Twitter @TheRealFluBBa
