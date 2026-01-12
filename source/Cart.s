@@ -113,7 +113,7 @@ machineInit: 	;@ Called from C
 	ldmfd sp!,{lr}
 	bx lr
 
-	.section .ewram,"ax"
+	.section .ewram, "ax", %progbits
 	.align 2
 ;@----------------------------------------------------------------------------
 loadCart: 		;@ Called from C:  r0=rom number, r1=emuFlags
@@ -341,7 +341,12 @@ vromBase2:
 promBase:
 	.long 0
 
+#ifdef GBA
+	.section .sbss				;@ This is EWRAM on GBA with devkitARM
+#else
 	.section .bss
+#endif
+	.align 2
 WRMEMTBL_:
 	.space 256*4
 RDMEMTBL_:

@@ -2,7 +2,7 @@ GhostsNGoblinsDS revision history
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 
-V0.1.7 - 2024-02-21 (FluBBa)
+V0.1.7 - 2026-01-12 (FluBBa)
 	Added new debug menu.
 	Better menu traversing.
 	Better rom loading.

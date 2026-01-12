@@ -250,9 +250,11 @@ z80DataLoop:
 	ldmfd sp!,{pc}
 ;@----------------------------------------------------------------------------
 #ifdef NDS
-	.section .dtcm, "ax", %progbits		;@ For the NDS
+	.section .sbss				;@ This is DTCM on NDS with devkitARM
 #elif GBA
-	.section .iwram, "ax", %progbits	;@ For the GBA
+	.section .bss				;@ This is IWRAM on GBA with devkitARM
+#else
+	.section .bss
 #endif
 	.align 2
 ;@----------------------------------------------------------------------------

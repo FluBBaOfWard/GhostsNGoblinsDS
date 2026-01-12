@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
 	irqSet(IRQ_VBLANK, myVblank);
 	setupGUI();
 	getInput();
-	if ( initFileHelper() ) {
+	if (initFileHelper()) {
 		loadSettings();
 		autoLoadGame();
 	}
@@ -200,7 +200,7 @@ static void setupStream() {
 	sys.samp_count			= 0;
 	sys.mem_bank			= 0;
 	sys.fifo_channel		= FIFO_MAXMOD;
-	mmInit( &sys );
+	mmInit(&sys);
 
 	//----------------------------------------------------------------
 	// open stream
@@ -213,7 +213,7 @@ static void setupStream() {
 	myStream.format			= MM_STREAM_16BIT_MONO;		// format = mono 16-bit
 	myStream.timer			= MM_TIMER0;				// use hardware timer 0
 	myStream.manual			= false;					// use manual filling
-	mmStreamOpen( &myStream );
+	mmStreamOpen(&myStream);
 
 	//----------------------------------------------------------------
 	// when using 'automatic' filling, your callback will be triggered
