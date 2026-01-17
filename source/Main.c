@@ -60,14 +60,15 @@ int main(int argc, char **argv) {
 		enableExit = true;
 	}
 	setupGraphics();
-	machineInit();
-
 	setupStream();
 	irqSet(IRQ_VBLANK, myVblank);
 	setupGUI();
 	getInput();
-	if (initFileHelper()) {
-		loadSettings();
+	initSettings();
+	bool fsOk = initFileHelper();
+	loadSettings();
+	machineInit();
+	if (fsOk) {
 		autoLoadGame();
 	}
 	else {
@@ -77,11 +78,11 @@ int main(int argc, char **argv) {
 
 	while (1) {
 		waitVBlank();
-		checkTimeOut();
 		guiRunLoop();
 		if (!pauseEmulation) {
 			run();
 		}
+		checkTimeOut();
 	}    
 	return 0;
 }
