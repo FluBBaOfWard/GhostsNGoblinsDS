@@ -46,8 +46,8 @@ To select between the tabs use R & L or the touchscreen.
 * Settings:
   * Speed: Switch between speed modes.
     * Normal: Game runs at it's normal speed.
-    * 200%: Game runs at double speed.
-    * Max: Game runs at 4 times normal speed (might change in the future).
+    * 200%: Game runs up to double speed.
+    * Max: Game runs up to 4 times normal speed.
     * 50%: Game runs at half speed.
   * Autoload State: Toggle Savestate autoloading. Automagically load the
    savestate associated with the selected game.

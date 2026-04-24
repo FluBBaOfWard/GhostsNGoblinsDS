@@ -14,7 +14,7 @@
 #include "ARMZ80/Version.h"
 #include "GnGVideo/Version.h"
 
-#define EMUVERSION "V0.1.7 2026-01-17"
+#define EMUVERSION "V0.1.7 2026-04-24"
 
 static void scalingSet(void);
 static const char *getScalingText(void);

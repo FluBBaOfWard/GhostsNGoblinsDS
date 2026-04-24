@@ -210,7 +210,7 @@ static void setupStream() {
 	myStream.sampling_rate	= sample_rate;				// sampling rate =
 	myStream.buffer_length	= buffer_size;				// buffer length =
 //	myStream.callback		= mix_sound;				// set callback function
-	myStream.callback		= VblSound2;				// set callback function
+	myStream.callback		= soundVbl2;				// set callback function
 	myStream.format			= MM_STREAM_16BIT_MONO;		// format = mono 16-bit
 	myStream.timer			= MM_TIMER0;				// use hardware timer 0
 	myStream.manual			= false;					// use manual filling

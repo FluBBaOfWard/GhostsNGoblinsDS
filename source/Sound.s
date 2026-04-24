@@ -8,9 +8,9 @@
 
 	.global soundInit
 	.global soundReset
-	.global VblSound2
+	.global soundVbl2
 	.global setMuteSoundGUI
-	.global setMuteSoundGame
+	.global soundSetMuteGame
 	.global soundWrite
 	.global updateSoundTimer
 	.global resetSoundCpu
@@ -56,7 +56,7 @@ setMuteSoundGUI:
 	strb r0,muteSoundGUI
 	bx lr
 ;@----------------------------------------------------------------------------
-setMuteSoundGame:			;@ For System E ?
+soundSetMuteGame:			;@ For System E ?
 ;@----------------------------------------------------------------------------
 	strb r0,muteSoundGame
 	bx lr
@@ -79,7 +79,7 @@ resetSoundCpu:
 	ldr r1,=Z80OpTable
 	b Z80SetResetPin
 ;@----------------------------------------------------------------------------
-VblSound2:					;@ r0=length, r1=pointer, r2=format?
+soundVbl2:					;@ r0=length, r1=pointer, r2=format?
 ;@----------------------------------------------------------------------------
 	ldr r3,muteSound
 	cmp r3,#0

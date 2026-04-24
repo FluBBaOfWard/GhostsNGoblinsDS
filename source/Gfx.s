@@ -34,12 +34,16 @@ gfxInit:					;@ Called from machineInit
 ;@----------------------------------------------------------------------------
 	stmfd sp!,{lr}
 
-	ldr r0,=OAM_BUFFER1			;@ No stray sprites please
+	ldr r0,scaleParms			;@ No stray sprites please
 	mov r1,#0x200+SCREEN_HEIGHT
-	mov r2,#0x100
+	mov r2,#0x200
 	bl memset_
 	adr r0,scaleParms
 	bl setupSpriteScaling
+	mov r0,#OAM
+	ldr r1,scaleParms
+	mov r2,#0x400
+	bl memcpy
 
 	ldr r0,=gGammaValue
 	ldrb r0,[r0]
@@ -70,7 +74,7 @@ gfxReset:					;@ Called with CPU reset
 	strh r0,[r1,#REG_WINOUT]
 
 	ldr gngptr,=gngVideo_0
-	ldr r0,=m6809SetIRQPin		;@ Frame irq
+	ldr r0,=m6809SetIRQPinCurrentCpu		;@ Frame irq
 	mov r1,#0
 	ldr r2,=EMU_RAM
 	bl gngVideoReset
